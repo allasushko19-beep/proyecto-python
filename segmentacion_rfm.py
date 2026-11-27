@@ -76,9 +76,10 @@ def resumir_cartera(clientes):
     for cliente in clientes:
         categoria = asignar_categoria(evaluar_rfm(cliente))
         if categoria not in resumen:
-            resumen[categoria] = {"clientes": 0, "ingresos": 0.0}
+            resumen[categoria] = {"clientes": 0, "ingresos": 0.0, "nombres": []}
         resumen[categoria]["clientes"] += 1
         resumen[categoria]["ingresos"] += cliente["gasto_total"]
+        resumen[categoria]["nombres"].append(cliente["nombre"])
 
     return resumen
 
@@ -91,6 +92,8 @@ def generar_reporte(clientes):
     for categoria, datos in resumen.items():
         porcentaje = round(datos["ingresos"] / total_ingresos * 100, 1)
         print(f"{categoria}: {datos['clientes']} clientes | {datos['ingresos']} € | {porcentaje} %")
+        for nombre in datos["nombres"]:
+            print(f"  - {nombre}")
 
     print(f"TOTAL: {len(clientes)} clientes | {total_ingresos} €")
 
