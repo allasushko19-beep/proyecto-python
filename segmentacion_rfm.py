@@ -82,4 +82,16 @@ def resumir_cartera(clientes):
 
     return resumen
 
-print(resumir_cartera(clientes_rfm))
+def generar_reporte(clientes):
+    resumen = resumir_cartera(clientes)
+    total_ingresos = 0
+    for categoria, datos in resumen.items():
+        total_ingresos += datos["ingresos"]
+
+    for categoria, datos in resumen.items():
+        porcentaje = round(datos["ingresos"] / total_ingresos * 100, 1)
+        print(f"{categoria}: {datos['clientes']} clientes | {datos['ingresos']} € | {porcentaje} %")
+
+    print(f"TOTAL: {len(clientes)} clientes | {total_ingresos} €")
+
+generar_reporte(clientes_rfm)
