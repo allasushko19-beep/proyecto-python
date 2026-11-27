@@ -23,9 +23,9 @@ clientes_rfm = [
 def evaluar_rfm(cliente):
 
     # Evaluar Recencia
-    if cliente["dias_ultima_compra"] <= 30:
+    if cliente["dias_ultima_compra"] <= 90:
         recencia = "Alta"
-    elif cliente["dias_ultima_compra"] <= 90:
+    elif cliente["dias_ultima_compra"] <= 180:
         recencia = "Media"
     else:
         recencia = "Baja"
@@ -54,6 +54,13 @@ def evaluar_rfm(cliente):
         "valor_monetario": valor_monetario
     }
 
-for cliente in clientes_rfm:
-    print(evaluar_rfm(cliente))
+
+def asignar_categoria(evaluacion_rfm):
+    reciencia = evaluacion_rfm["recencia"]
+    frecuencia = evaluacion_rfm["frecuencia"]
+    valor_monetario = evaluacion_rfm["valor_monetario"]
+    if reciencia == "Alta" and frecuencia == "Alta" and valor_monetario == "Alto":
+        return "VIP"
+    elif reciencia == "Baja":
+        return "Inactivo"
     
