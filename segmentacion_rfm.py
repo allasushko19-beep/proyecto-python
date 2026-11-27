@@ -56,11 +56,19 @@ def evaluar_rfm(cliente):
 
 
 def asignar_categoria(evaluacion_rfm):
-    reciencia = evaluacion_rfm["recencia"]
+    recencia = evaluacion_rfm["recencia"]
     frecuencia = evaluacion_rfm["frecuencia"]
     valor_monetario = evaluacion_rfm["valor_monetario"]
-    if reciencia == "Alta" and frecuencia == "Alta" and valor_monetario == "Alto":
+    if recencia == "Alta" and frecuencia == "Alta" and valor_monetario == "Alto":
         return "VIP"
-    elif reciencia == "Baja":
+    elif recencia == "Baja":
         return "Inactivo"
-    
+    elif recencia == "Media":
+        return "En riesgo"
+    elif recencia == "Alta" and (frecuencia == "Alta" or frecuencia == "Media"):
+        return "Leal"
+    else:
+        return "Nuevo"
+
+for cliente in clientes_rfm:
+    print(cliente["nombre"], "→", asignar_categoria(evaluar_rfm(cliente)))
