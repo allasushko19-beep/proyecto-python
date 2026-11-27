@@ -70,5 +70,16 @@ def asignar_categoria(evaluacion_rfm):
     else:
         return "Nuevo"
 
-for cliente in clientes_rfm:
-    print(cliente["nombre"], "→", asignar_categoria(evaluar_rfm(cliente)))
+def resumir_cartera(clientes):
+    resumen = {}
+
+    for cliente in clientes:
+        categoria = asignar_categoria(evaluar_rfm(cliente))
+        if categoria not in resumen:
+            resumen[categoria] = {"clientes": 0, "ingresos": 0.0}
+        resumen[categoria]["clientes"] += 1
+        resumen[categoria]["ingresos"] += cliente["gasto_total"]
+
+    return resumen
+
+print(resumir_cartera(clientes_rfm))
