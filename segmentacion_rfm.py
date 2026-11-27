@@ -20,3 +20,40 @@ clientes_rfm = [
 "gasto_total": 60.0, "dias_ultima_compra": 300}
 ]
 
+def evaluar_rfm(cliente):
+
+    # Evaluar Recencia
+    if cliente["dias_ultima_compra"] <= 30:
+        recencia = "Alta"
+    elif cliente["dias_ultima_compra"] <= 90:
+        recencia = "Media"
+    else:
+        recencia = "Baja"
+
+    # Evaluar Frecuencia
+    if cliente["frecuencia_compras"] >= 10:
+        frecuencia = "Alta"
+    elif cliente["frecuencia_compras"] >= 5:
+        frecuencia = "Media"
+    else:
+        frecuencia = "Baja"
+
+    # Evaluar Valor Monetario
+    if cliente["gasto_total"] >= 2000:
+        valor_monetario = "Alto"
+    elif cliente["gasto_total"] >= 1000:
+        valor_monetario = "Medio"
+    else:
+        valor_monetario = "Bajo"
+
+    return {
+        "cliente_id": cliente["cliente_id"],
+        "nombre": cliente["nombre"],
+        "recencia": recencia,
+        "frecuencia": frecuencia,
+        "valor_monetario": valor_monetario
+    }
+
+for cliente in clientes_rfm:
+    print(evaluar_rfm(cliente))
+    
